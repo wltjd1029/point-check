@@ -16,7 +16,7 @@
     }
 
     h2 {
-      font-size: 24px;
+      font-size: 24px;  
       margin-bottom: 20px;
       text-align: center;
     }
@@ -85,20 +85,11 @@
       const inputField = document.getElementById("customerName");
       const name = inputField.value;
       const apiUrl = "https://script.google.com/macros/s/AKfycbxarCTXB5GXMjEojCGQkpGjIquE8sTmQjQR1-P1slbTzG_-4ofgUBqIu17BxMnpWYQcLQ/exec";
-  
+      //입력이 비어있으면 경고 메시지출력
       if (name === "") {
-        document.getElementById("result").innerText = "⚠️ 고객명을 입력해주세요.";
-  
-        // 👇 흔들림 효과 적용
-        inputField.classList.add("shake");
-  
-        // 흔들림 효과 끝난 뒤 클래스 제거 (반복 흔들림 방지)
-        setTimeout(() => {
-          inputField.classList.remove("shake");
-        }, 300);
-  
-        return;
-      }
+        document.getElementById("result").innerText = "고객명을 입력해주세요"
+        return; //아래 fetch 코드를 실행하지 않음
+      }  
   
       fetch(`${apiUrl}?name=${encodeURIComponent(name)}`)
         .then(res => res.json())
