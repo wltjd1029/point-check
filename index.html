@@ -67,7 +67,7 @@
 <body>
   <h2>배민,쿠팡 고객명으로 누적 포인트 조회</h2>
   <p>동일한 이름의 고객이 있는 경우 전화번호로 구분해주세요</p>
-  <input type="text" id="customerName" placeholder="예: 김철수">
+  <input type="text" id="customerName" placeholder="예: 홍길동 (TEST고객명)">
   <button onclick="searchPoint()">조회</button>
   <div id="result"></div>
 
@@ -75,11 +75,10 @@
     function searchPoint() {
       const name = document.getElementById("customerName").value;
       const apiUrl = "https://script.google.com/macros/s/AKfycbw5Nio5IOLRA-MmRhqbmWP0foWbpHFGE7eW5sRsTD-EIX6-WksMBwoYJ26oBPaK9LV70g/exec";
-
-       // 입력이 비어있으면 경고 메시지 출력
-      if(name==="") {
-        document.getElementById("result").innerText="고객명을 입력해주세요";
-        return; //아래 fetch 코드 실행하지 안음
+      // 입력이 비어있으면 경고 메시지 출력
+      if (name === "") {
+        document.getElementById("result").innerText = "고객명을 입력해주세요."
+        return; // 아래 fetch 코드를 실행하지 않음
       }
 
       fetch(`${apiUrl}?name=${encodeURIComponent(name)}`)
