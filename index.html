@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +17,7 @@
     }
 
     h2 {
-      font-size: 24px;  
+      font-size: 24px;
       margin-bottom: 20px;
       text-align: center;
     }
@@ -62,16 +63,6 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
-    .shake {
-      animation: shake 0.3s;
-    }
   </style>
 </head>
 <body>
@@ -80,31 +71,32 @@
   <input type="text" id="customerName" placeholder="예: 홍길동 (TEST고객명)">
   <button onclick="searchPoint()">조회</button>
   <div id="result"></div>
+
   <script>
     function searchPoint() {
       const name = document.getElementById("customerName").value;
-      const apiUrl = "https://script.google.com/macros/s/AKfycbxarCTXB5GXMjEojCGQkpGjIquE8sTmQjQR1-P1slbTzG_-4ofgUBqIu17BxMnpWYQcLQ/exec";
-      //입력이 비어있으면 경고 메시지출력
+      const apiUrl = "https://script.google.com/macros/s/AKfycbw5Nio5IOLRA-MmRhqbmWP0foWbpHFGE7eW5sRsTD-EIX6-WksMBwoYJ26oBPaK9LV70g/exec";
+      // 입력이 비어있으면 경고 메시지 출력
       if (name === "") {
-        document.getElementById("result").innerText = "⚠️고객명을 입력해주세요"
-        return; //아래 fetch 코드를 실행하지 않음
-      }  
-  
+        document.getElementById("result").innerText = "⚠️고객명을 입력해주세요."
+        return; // 아래 fetch 코드를 실행하지 않음
+      }
+
       fetch(`${apiUrl}?name=${encodeURIComponent(name)}`)
         .then(res => res.json())
         .then(data => {
           if (data.error) {
             document.getElementById("result").innerText = data.error;
           } else {
-            let output = `고객명: ${data.name}\n\n`;
+            let output = `고객명: ${data.name}\n`;
             data.list.forEach(item => {
-              output += `📞 전화번호: ${item.phone}\n💳 포인트: ${item.point}점\n\n`;
+              output += `- 📞전화번호: ${item.phone} | 💳누적 포인트: ${item.point}점\n`;
             });
             document.getElementById("result").innerText = output;
           }
         });
     }
   </script>
-   
+
 </body>
 </html>
