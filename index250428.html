@@ -87,7 +87,8 @@
 
   <script>
     function searchPoint() {
-      const name = document.getElementById("customerName").value;
+      const inputField = document.getElementById("customerName");
+      const name = inputField.value.trim();
       const apiUrl = "https://script.google.com/macros/s/AKfycbw5Nio5IOLRA-MmRhqbmWP0foWbpHFGE7eW5sRsTD-EIX6-WksMBwoYJ26oBPaK9LV70g/exec";
       // 입력이 비어있으면 경고 메시지 출력
       if (name === "") {
