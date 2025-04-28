@@ -99,7 +99,7 @@
 
         // 흔들림 효과 끝난 뒤 클래스 제거 (반복 흔들림 방지)
         setTimeout(() => {
-          inputField.classlist.remove("shake");
+          inputField.classList.remove("shake");
         }, 300);
         
         return; // 아래 fetch 코드를 실행하지 않음
