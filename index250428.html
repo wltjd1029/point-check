@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>누적 포인트 조회</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      font-size: 18px;
+      padding: 14px;
+      width: 90%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 14px 24px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      font-size: 20px;
+      margin-top: 24px;
+      font-weight: bold;
+      color: #333;
+      white-space: pre-line;
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: tanslateX(5px); } 
+    }
+
+    .shake {
+      animation: shake 0.3s;
+    }
+
+  </style>
+</head>
+<body>
+  <h2>배민,쿠팡 고객명으로 누적 포인트 조회</h2>
+  <p>동일한 이름의 고객이 있는 경우 전화번호로 구분해주세요</p>
+  <input type="text" id="customerName" placeholder="예: 홍길동 (TEST고객명)">
+  <button onclick="searchPoint()">조회</button>
+  <div id="result"></div>
+
+  <script>
+    function searchPoint() {
+      const name = document.getElementById("customerName").value;
+      const apiUrl = "https://script.google.com/macros/s/AKfycbw5Nio5IOLRA-MmRhqbmWP0foWbpHFGE7eW5sRsTD-EIX6-WksMBwoYJ26oBPaK9LV70g/exec";
+      // 입력이 비어있으면 경고 메시지 출력
+      if (name === "") {
+        document.getElementById("result").innerText = "⚠️고객명을 입력해주세요."
+
+        // 흔들림 효과 적용
+        inputField.classList.add("shake");
+
+        // 흔들림 효과 끝난 뒤 클래스 제거 (반복 흔들림 방지)
+        setTimeout(() => {
+          inputField.classlist.remove("shake");
+        }, 300);
+        
+        return; // 아래 fetch 코드를 실행하지 않음
+      }
+
+      fetch(`${apiUrl}?name=${encodeURIComponent(name)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById("result").innerText = data.error;
+          } else {
+            let output = `고객명: ${data.name}\n`;
+            data.list.forEach(item => {
+              output += `- 📞전화번호: ${item.phone} | 💳누적 포인트: ${item.point}점\n`;
+            });
+            document.getElementById("result").innerText = output;
+          }
+        });
+    }
+  </script>
+
+</body>
+</html>
