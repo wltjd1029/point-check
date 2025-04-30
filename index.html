@@ -90,7 +90,7 @@
           } else {
             let output = `고객명: ${data.name}\n`;
             data.list.forEach(item => {
-              output += `- 📞전화번호: ${item.phone} | 💳누적 포인트: ${number(item.point).toLocaleString()}원\n`;
+              output += `- 📞전화번호: ${item.phone} | 💳누적 포인트: ${Number(item.point).toLocaleString()}원\n`;
             });
             document.getElementById("result").innerText = output;
           }
